@@ -1,0 +1,16 @@
+{
+    "name": "belowaverage/releasy",
+    "description": "Releasy is a simple version number bumping and releasing tool written in PHP.",
+    "authors": [
+        {
+            "name": "Jani Yli-Paavola"
+        }
+    ],
+    "license": "MIT",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "BelowAverage\\Releasy\\": ["src/Releasy"]
+        }
+    }
+}
