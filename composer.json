@@ -12,5 +12,6 @@
         "psr-4": {
             "BelowAverage\\Releasy\\": ["src/Releasy"]
         }
-    }
+    },
+    "bin": ["bin/releasy"]
 }
