@@ -13,5 +13,13 @@
             "BelowAverage\\Releasy\\": ["src/Releasy"]
         }
     },
-    "bin": ["bin/releasy"]
+    "autoload-dev": {
+        "psr-4": {
+            "BelowAverage\\Releasy\\": ["tests/Releasy"]
+        }
+    },
+    "bin": ["bin/releasy"],
+    "require-dev": {
+        "phpunit/phpunit": "^6.3"
+    }
 }
