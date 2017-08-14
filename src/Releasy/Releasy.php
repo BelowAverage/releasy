@@ -48,11 +48,11 @@ class Releasy {
             $newVersion = $version->bumpPatch();
         }
         file_put_contents(getcwd() . '/.semver', (string)$newVersion);
-        if($vcs->commitTagPush($version)) {
-            echo 'Released version ' . (string)$version;
+        if($vcs->commitTagPush($newVersion)) {
+            echo 'Released version ' . (string)$newVersion;
             exit(0);
         } else {
-            echo PHP_EOL . 'Releasing version ' . (string)$version . ' has failed.';
+            echo PHP_EOL . 'Releasing version ' . (string)$newVersion . ' has failed.';
             $vcs->reset();
             exit(1);
         }

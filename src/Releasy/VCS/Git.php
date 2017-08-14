@@ -69,7 +69,7 @@ class Git implements VersionControl {
         }
         shell_exec('git add .semver');
         shell_exec('git commit -m "Release of version ' . (string)$version . '"');
-        shell_exec('git tag -a '. (string)$version);
+        shell_exec('git tag -a '. (string)$version . ' -m "Release version ' . (string)$version . '"');
         shell_exec('git push --follow-tags');
         return true;
     }
