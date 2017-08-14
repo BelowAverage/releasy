@@ -9,7 +9,7 @@ use RuntimeException;
 
 /**
  * @package BelowAverage.Releasy
- * @version 0.2.1   2017-08-14
+ * @version 0.2.2   2017-08-14
  * @author  Jani Yli-Paavola
  * @license MIT
  */
@@ -67,6 +67,7 @@ class Git implements VersionControl {
             echo 'You are not on your master branch - currently in '. $currentBranch .'. Please switch to master first';
             return false;
         }
+        shell_exec('git add .semver');
         shell_exec('git commit -m "Release of version ' . (string)$version . '"');
         shell_exec('git tag -a '. (string)$version);
         shell_exec('git push --follow-tags');
