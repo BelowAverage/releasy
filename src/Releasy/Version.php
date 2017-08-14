@@ -8,7 +8,7 @@ use InvalidArgumentException;
  * Version
  * 
  * @package BelowAverage.Releasy
- * @version 0.1.0   2017-08-11
+ * @version 0.1.1   2017-08-14
  * @author  Jani Yli-Paavola
  * @license MIT
  */
@@ -76,7 +76,7 @@ class Version {
             'major'         => intval(0),
             'minor'         => intval(0),
             'patch'         => intval(0),
-            'pre-release'   => '',
+            'prerelease'    => '',
             'build'         => ''
         ];
         
@@ -86,7 +86,7 @@ class Version {
                 $version['major'], 
                 $version['minor'], 
                 $version['patch'], 
-                $version['versionString'], 
+                $version['prerelease'], 
                 $version['build']
         );        
     }
