@@ -1,5 +1,5 @@
 #!/usr/bin/env php
 <?php
-    require_once(__DIR__ . '/../vendor/autoload.php');
+    require_once(getcwd() . '/vendor/autoload.php');
     $releasy = new BelowAverage\Releasy\Releasy();
     $releasy->run($argv);
