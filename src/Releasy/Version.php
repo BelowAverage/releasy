@@ -8,7 +8,7 @@ use InvalidArgumentException;
  * Version
  * 
  * @package BelowAverage.Releasy
- * @version 0.2.0   2017-08-14
+ * @version 0.3.0   2017-08-14
  * @author  Jani Yli-Paavola
  * @license MIT
  */
@@ -219,9 +219,22 @@ class Version {
      * @throws InvalidArgumentException
      */
     private function setPreRelease($preRelease) {
-        
+                
         if($preRelease !== '' && !preg_match('#^([0-9A-Za-z-]+\.)*[0-9A-Za-z-]+$#', $preRelease)) {
             throw new InvalidArgumentException('Pre-release information is not valid.');
+        }
+        
+        $identifiers = explode('.', $preRelease);
+        foreach($identifiers as $identifier) {
+            
+            if(strpos($preRelease, '.') && $identifier == '') {
+                throw new InvalidArgumentException('Identifier cannot be empty');
+            }
+            
+            // leading zeros not permitted
+            if(strpos($identifier, '00') === 0) {
+                throw new InvalidArgumentException(' Numeric identifiers MUST NOT include leading zeroes. Got ' . $preRelease);
+            }
         }
         
         $this->preRelease = $preRelease;
@@ -238,6 +251,14 @@ class Version {
         
         if($build !== '' && !preg_match('#^([0-9A-Za-z-]+\.)*[0-9A-Za-z-]+$#', $build)) {
             throw new InvalidArgumentException('Build information is not valid.');
+        }
+        
+        $identifiers = explode('.', $build);
+        foreach($identifiers as $identifier) {
+            
+            if(strpos($build, '.') && $identifier == '') {
+                throw new InvalidArgumentException('Identifier cannot be empty');
+            }
         }
         
         $this->build = $build;

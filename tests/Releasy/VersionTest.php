@@ -2,11 +2,12 @@
 
 namespace BelowAverage\Releasy;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @package BelowAverage.Releasy
- * @version 0.2.0   2017-08-14
+ * @version 0.3.0   2017-08-14
  * @author  Jani Yli-Paavola
  * @license MIT
  */
@@ -42,8 +43,14 @@ class VersionTest extends TestCase {
             ['1.z'],
             ['1.1.z'],
             ['1.1.1-0001'],
+            ['1.1.1-1..1'],
             ['1.1.1.1'],
-            ['1.1.1.alpha']
+            ['1.1.1.alpha'],
+            ['1+build.1234'],
+            ['1.1.1-+'],
+            ['1.1.1-rc.1+'],
+            ['1.1.1-rc.1+.'],
+            ['1.1.1-rc.1+build..1']
         ];
     }
     
@@ -77,6 +84,15 @@ class VersionTest extends TestCase {
         $this->assertEquals($expPatch, $version->patch(), 'Patch version was set incorrectly - it should be the 3rd parameter of __constructor');
         $this->assertEquals($expPreRelease, $version->preRelease(), 'Pre-release version was set incorrectly - it should be the 4th parameter of __constructor');
         $this->assertEquals($expBuild, $version->build(), 'Build version was set incorrectly - it should be the 5th parameter of __constructor');
+    }
+    
+    /**
+     * @dataProvider provideInvalidVersions
+     * @expectedException InvalidArgumentException
+     * @param string $versionContstraint
+     */
+    public function testFromStringFailsProperlyWithInvalidVersions(string $versionContstraint) {
+        Version::fromString($versionContstraint);
     }
     
     /**
