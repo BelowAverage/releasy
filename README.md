@@ -1,4 +1,4 @@
-# php-mvc
+# Releasy
 
 What is it?
 -----------
