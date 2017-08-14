@@ -4,7 +4,7 @@ namespace BelowAverage\Releasy;
 
 /**
  * @package BelowAverage.Releasy
- * @version 0.2.0   2017-08-14
+ * @version 0.3.0   2017-08-14
  * @author  Jani Yli-Paavola
  * @license MIT
  */
@@ -17,8 +17,8 @@ class Releasy {
      */
     public function run($arg = []) {
 
-        if (!isset($arg[1]) || !in_array($arg[1], ['init', 'major', 'minor', 'patch', 'release'])) {
-            echo 'Usage: ' . $arg[0] . ' [major|minor|patch|init|release]';
+        if (!isset($arg[1]) || !in_array($arg[1], ['init', 'major', 'minor', 'patch'])) {
+            echo 'Usage: ' . $arg[0] . ' [major|minor|patch|init]';
             exit();
         }
 
@@ -47,15 +47,12 @@ class Releasy {
         if($arg[1] == 'patch') {
             file_put_contents(getcwd() . '/.semver', (string)$version->bumpPatch());
         }
-        if($arg[1] == 'release') {
-            if($vcs->commitTagPush($version)) {
-                echo 'Released version ' . (string)$version;
-                exit(0);
-            } else {
-                echo PHP_EOL . 'Releasing version ' . (string)$version . ' has failed.';
-                exit(1);
-            }
-                    
+        if($vcs->commitTagPush($version)) {
+            echo 'Released version ' . (string)$version;
+            exit(0);
+        } else {
+            echo PHP_EOL . 'Releasing version ' . (string)$version . ' has failed.';
+            exit(1);
         }
     }
 

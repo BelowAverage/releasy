@@ -24,14 +24,11 @@ To init a project, run
 
 If <your version> is omitted, default 0.0.0 will be used. Please use semver compliant version constraints.
 
-To bump major/minor/patch version, make sure all your work is committed (or stashed) and then run
+To bump and release major/minor/patch version, make sure all your work is committed (or stashed) and then run
 
 `vendor/bin releasy major|minor|patch`
 
-To release (e.g. tag + push to master), run
-
-`vendor/bin releasy release`
-
+This will increment the version and then it does the release (tag and push). 
 
 
 Versioning
