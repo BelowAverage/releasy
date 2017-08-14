@@ -6,11 +6,16 @@ namespace BelowAverage\Releasy;
  * VersionControl
  * 
  * @package BelowAverage.Releasy
- * @version 0.2.0   2017-08-12
+ * @version 0.3.0   2017-08-14
  * @author  Jani Yli-Paavola
  * @license MIT
  */
 interface VersionControl {
+    
+    /**
+     * 
+     */
+    public function reset();
     
     /**
      * 

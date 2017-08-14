@@ -9,7 +9,7 @@ use RuntimeException;
 
 /**
  * @package BelowAverage.Releasy
- * @version 0.2.0   2017-08-14
+ * @version 0.2.1   2017-08-14
  * @author  Jani Yli-Paavola
  * @license MIT
  */
@@ -62,15 +62,19 @@ class Git implements VersionControl {
      * @return bool
      */
     public function commitTagPush(Version $version): bool {
-        $currentBranch = shell_exec('git rev-parse --abbrev-ref HEAD');
+        $currentBranch = trim(shell_exec('git rev-parse --abbrev-ref HEAD'));
         if($currentBranch !== 'master') {
-            echo 'You are not on your master branch. Please switch to master first';
+            echo 'You are not on your master branch - currently in '. $currentBranch .'. Please switch to master first';
             return false;
         }
         shell_exec('git commit -m "Release of version ' . (string)$version . '"');
         shell_exec('git tag -a '. (string)$version);
         shell_exec('git push --follow-tags');
         return true;
+    }
+
+    public function reset() {
+        return shell_exec('git checkout .');
     }
 
 }

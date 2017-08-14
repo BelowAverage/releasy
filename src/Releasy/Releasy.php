@@ -4,7 +4,7 @@ namespace BelowAverage\Releasy;
 
 /**
  * @package BelowAverage.Releasy
- * @version 0.3.0   2017-08-14
+ * @version 0.3.1   2017-08-14
  * @author  Jani Yli-Paavola
  * @license MIT
  */
@@ -33,25 +33,27 @@ class Releasy {
         }
         $version = Version::fromString(file_get_contents(getcwd() . '/.semver'));
         $vcs = new VCS\Git();
-        if(!$vcs->checkStatus() || $vcs->fetch() || $vcs->compareLocalAndRemote()) {
+        if(!$vcs->checkStatus() || $vcs->fetch() || $vcs->compareLocalAndRemote() != 0) {
             exit(1);
         }
         
         
         if($arg[1] == 'major') {
-            file_put_contents(getcwd() . '/.semver', (string)$version->bumpMajor());
+            $newVersion = $version->bumpMajor();
         }
         if($arg[1] == 'minor') {
-            file_put_contents(getcwd() . '/.semver', (string)$version->bumpMinor());
+            $newVersion = $version->bumpMinor();
         }
         if($arg[1] == 'patch') {
-            file_put_contents(getcwd() . '/.semver', (string)$version->bumpPatch());
+            $newVersion = $version->bumpPatch();
         }
+        file_put_contents(getcwd() . '/.semver', (string)$newVersion);
         if($vcs->commitTagPush($version)) {
             echo 'Released version ' . (string)$version;
             exit(0);
         } else {
             echo PHP_EOL . 'Releasing version ' . (string)$version . ' has failed.';
+            $vcs->reset();
             exit(1);
         }
     }
