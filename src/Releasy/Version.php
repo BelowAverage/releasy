@@ -8,7 +8,7 @@ use InvalidArgumentException;
  * Version
  * 
  * @package BelowAverage.Releasy
- * @version 0.1.1   2017-08-14
+ * @version 0.2.0   2017-08-14
  * @author  Jani Yli-Paavola
  * @license MIT
  */
@@ -123,6 +123,95 @@ class Version {
         
     }
     
+    /**
+     * 
+     * @return int
+     */
+    public function major(): int {
+        return $this->major;
+    }
+
+    /**
+     * 
+     * @return int
+     */
+    public function minor(): int {
+        return $this->minor;
+    }
+    
+    /**
+     * 
+     * @return int
+     */
+    public function patch(): int {
+        return $this->patch;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function preRelease(): string {
+        return $this->preRelease;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function build(): string {
+        return $this->build;
+    }
+    
+    /**
+     * 
+     * @return Version
+     */
+    public function bumpMajor(): Version {
+        // If current version is a prelease, bumping major is the actual release of the version - thus
+        // remove prerelease information
+        if($this->preRelease !== '') {
+            return new Version($this->major, $this->minor, $this->patch);
+        }
+        
+        $inc = $this->major + 1;
+        
+        return new Version($inc, 0, 0);
+    }
+    
+    /**
+     * 
+     * @return Version
+     */
+    public function bumpMinor(): Version {
+        // If current version is a prelease, bumping minor is the actual release of the version - thus
+        // remove prerelease information
+        if($this->preRelease !== '') {
+            return new Version($this->major, $this->minor, $this->patch);
+        }
+        
+        $inc = $this->minor + 1;
+        
+        return new Version($this->major, $inc, 0);
+    }
+    
+    /**
+     * 
+     * @return Version
+     */
+    public function bumpPatch(): Version {
+        // If current version is a prelease, bumping patch is the actual release of the version - thus
+        // remove prerelease information
+        if($this->preRelease !== '') {
+            return new Version($this->major, $this->minor, $this->patch);
+        }
+        
+        $inc = $this->patch + 1;
+        
+        return new Version($this->major, $this->minor, $inc);
+    }
+
+        
     /**
      * Validates pre-release information
      * 
